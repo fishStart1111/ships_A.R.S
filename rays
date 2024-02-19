@@ -1,0 +1,115 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class zones : MonoBehaviour
+{
+    private float range = 1f;
+    
+    public UnityEngine.AI.NavMeshAgent agent;
+
+    float x;
+    float y;
+    float z;
+    Vector3 pos;
+
+    private int health;
+    
+    
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        health = 1000;
+    }
+        
+    public Vector3 posSet(){
+        x = Random.Range(-25, 26);
+        y = 0;
+        z = Random.Range(-25, 26);
+        pos = new Vector3(x, y, z);
+        return pos;
+    }
+
+ 
+    
+    void Update()
+    {
+        Vector3 direction1 = Vector3.forward;
+        Vector3 direction2 = Vector3.right;
+        Vector3 direction3 = Vector3.left;
+        Vector3 direction4 = Vector3.back;
+
+        //avangard
+        Ray forward = new Ray(transform.position, transform.TransformDirection(direction1 * 2));
+        Ray right = new Ray(transform.position, transform.TransformDirection(direction2 * range));
+        Ray left = new Ray(transform.position, transform.TransformDirection(direction3 * range));
+        Ray back = new Ray(transform.position, transform.TransformDirection(direction4 * range));
+
+
+
+
+        
+        RaycastHit hit;
+
+        if (Physics.Raycast(forward, out hit, 2))
+        {
+            if (hit.collider.tag == "enemy"){
+                    
+                hit.collider.gameObject.transform.position = posSet();
+                    
+
+             }
+        }
+
+        if (Physics.SphereCast(right, 1f, out hit, range))
+        {
+            if (hit.collider.tag == "enemy"){
+                    
+               health = health - 25;
+               print(health);
+                   
+
+            }
+        }
+        if (Physics.Raycast(left, out hit, range))
+        {
+            if (hit.collider.tag == "enemy"){
+                    
+                health = health - 25;
+                print(health);
+            }
+        }
+        if (Physics.Raycast(back, out hit, range))
+        {
+            if (hit.collider.tag == "enemy"){
+                    
+                health = health - 50;
+                print(health);
+            }
+        }
+        if (this.health <= 0){
+            this.transform.position = posSet();
+            health = 1000;
+        }
+        
+
+
+
+
+
+
+
+
+
+
+        
+
+        //right flang
+
+        //left flang 
+
+        //back line
+    }
+}
