@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class friendlyMovement : MonoBehaviour
+{
+   public UnityEngine.AI.NavMeshAgent agent;
+   public Transform enemy;
+   
+   
+
+    void Start(){
+      
+    }
+    void Update()
+    {
+        
+        agent.destination = enemy.position;  
+        
+    }
+}
